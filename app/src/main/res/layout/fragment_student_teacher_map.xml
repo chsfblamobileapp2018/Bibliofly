@@ -1,0 +1,156 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.StudentTeacher.StudentTeacherMapFragment">
+
+
+    <ImageView
+        android:id="@+id/work_bench_1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/work_bench_1" />
+
+    <ImageView
+        android:id="@+id/work_bench_2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/work_bench_2" />
+
+    <ImageView
+        android:id="@+id/front_desk"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/front_desk" />
+
+    <ImageView
+        android:id="@+id/PC_Computers"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/pc_computers" />
+
+    <ImageView
+        android:id="@+id/book_displays"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/bookdisplays" />
+
+    <ImageView
+        android:id="@+id/seating_area"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/seatingarea" />
+
+    <ImageView
+        android:id="@+id/work_bench_3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/workbench_3" />
+
+    <ImageView
+        android:id="@+id/work_bench_4"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/workbench_4" />
+
+
+    <ImageView
+        android:id="@+id/mac_lab"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/mac_lab" />
+
+    <ImageView
+        android:id="@+id/offices"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/offices" />
+
+    <ImageView
+        android:id="@+id/entrance"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/entrance" />
+
+    <ImageView
+        android:id="@+id/work_cubicles"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/work_cubies" />
+
+    <ImageView
+        android:id="@+id/printer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/printers" />
+
+    <ImageView
+        android:id="@+id/independent_library"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/independent_library" />
+
+    <ImageView
+        android:id="@+id/fiction_section"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/fiction_section" />
+
+    <ImageView
+        android:id="@+id/biography_section"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/biography_section" />
+
+    <ImageView
+        android:id="@+id/shelves"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/shelves" />
+
+    <ImageView
+        android:id="@+id/library_image_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
+        android:clickable="false"
+        android:src="@mipmap/rotated_library"
+
+        />
+
+</FrameLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/bookProfileTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:maxLength="23"
+        android:text="Title"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        app:layout_constraintStart_toEndOf="@+id/bookProfileImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bookProfileImage"
+        android:layout_width="64dp"
+        android:layout_height="98dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+    <TextView
+        android:id="@+id/bookProfileAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="Author"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        app:layout_constraintStart_toEndOf="@+id/bookProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/bookProfileTitle" />
+
+    <TextView
+        android:id="@+id/bookProfileDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="Description (Due Date or Place in line)"
+        app:layout_constraintStart_toEndOf="@+id/bookProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/bookProfileAuthor" />
+</android.support.constraint.ConstraintLayout>

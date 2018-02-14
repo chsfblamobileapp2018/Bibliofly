@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.klinkerapps:sliding-activity-1.4.4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sliding-activity-1.4.4.aar/8619695eb4ae7e18ff3be49f51bb23f1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sliding-activity-1.4.4.aar/8619695eb4ae7e18ff3be49f51bb23f1/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.klinkerapps/sliding-activity/1.4.4/568cc6e124c5c8dbe08d839242979c1edfd91edc/sliding-activity-1.4.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

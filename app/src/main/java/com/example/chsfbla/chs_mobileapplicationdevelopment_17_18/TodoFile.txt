@@ -1,0 +1,6 @@
+Material Design Website: https://materialdoc.com/
+Add Sketch file to XML (the search bar and everything)
+    For loading animation, use https://materialdoc.com/components/progress/
+Create Database and start pushing data from user
+Finalize what tabs there should be
+Figure out how to create different Fragments

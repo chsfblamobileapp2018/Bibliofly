@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Bibliofly</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+
+
+    <string name="status">Select your position at School</string>
+
+    <string-array name="status_array">
+        <item>Student</item>
+        <item>Teacher</item>
+        <item>Librarian</item>
+    </string-array>
+    <string name="title_activity_login_google">Sign in</string>
+
+    <string name="work_bench_1">This is a work area.</string>
+    <string name="work_bench_2">This is a work area.</string>
+    <string name="work_bench_3">This is a work area.</string>
+    <string name="work_bench_4">This is a work area.</string>
+    <string name="front_desk">Front Desk.</string>
+    <string name="PC_Computers">These are the PC computers.</string>
+    <string name="book_displays">Here, you can find books on display.</string>
+    <string name="seating_area">This is a seating area.</string>
+    <string name="mac_lab">These are the Mac computers.</string>
+    <string name="offices">If you need something, you can visit the library office.</string>
+    <string name="entrance">This is the entrance and exit to the library.</string>
+    <string name="work_cubicles">Come here if you want tome private work time.</string>
+    <string name="printer">This is the library\'s printer. You can print or scan documents for free.</string>
+    <string name="independent_library">This is the entrance to the kids section of the library.</string>
+    <string name="fiction_section">This is the fiction section of the library.</string>
+    <string name="biography_section">This is the biography section of the library</string>
+    <string name="shelves">Books in these shelves are organized by the Dewey Decimal system. Check with your librarian for more information.</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>

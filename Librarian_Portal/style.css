@@ -1,0 +1,31 @@
+h1 {
+	text-align: center;
+}
+
+h2 {
+	text-align: center;
+}
+
+ol {
+	text-align: center;
+}
+
+li {
+  display:table;
+  margin:10px auto 0px auto;
+}
+
+#file {
+	text-align: left;
+}
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#logout {
+	background-color: red;
+	color: white;
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Librarian Setup</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<!--
+#col 1 is barcode
+#col 2 is ISBN
+ -->
+
+<!-- 	<div class="row">
+	    <div id="icon">
+			<img src="res/icon.jpg" alt="Application Logo">
+	    </div>
+	    <div class="col-md-6">
+	        <h1>Bibliofly - Library Database Quick Setup Portal</h1>
+	    </div>
+	</div> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <img style='float:left;' src="res/icon.jpg"/>
+            <h1>Bibliofly - Library Database Quick Setup Portal</h1>
+        </div>
+    </div>
+
+
+    <h2>How to use automatic book entry system</h2>
+
+    <ul>
+        <li>Obtain a .csv file with Barcodes(in column 1) and ISBN numbers (in column 2)</li>
+        <li>Click the button which says "Choose File" and add the .csv</li>
+        <li>Finally click "Add Books" which parses the csv and uploads the books to your personal
+            library database.
+        </li>
+    </ul>
+
+    <h2>How to use automatic account creation system</h2>
+
+    <ul>
+        <li>Obtain a .csv file of emails (in column 1), passwords (in column 2), names (in column
+            3), and finally status (either "Student" or "Teacher" account) in column 4.
+        </li>
+        <li>Click the button which says "Choose File" and add the .csv</li>
+        <li>Finally click "Create Accounts" which parses the .csv, creates a new account, and adds
+            the new users credentials to the Online Authentication Database.
+        </li>
+    </ul>
+
+
+    <!-- <input type="file" id="files" name="files[]" multiple />
+    <output id="list"></output> -->
+
+
+    <pre id="file"></pre>
+
+    <div class="wrapper">
+        <input id="fileInput" type="file">
+        <button id="myBtn">Add Books</button>
+    </div>
+
+    <pre id="file"></pre>
+
+    <div class="wrapper">
+        <input type="file" name="file2" id="file2">
+        <button id="myBtn2">Create Accounts</button>
+    </div>
+
+    <pre id="file2"></pre>
+
+    <button style="width:100px;height:50px;" id="logout" onclick="logout();">Logout</button>
+
+
+    <!--firebase initialization code-->
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase-database.js"></script>
+    <script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyB-xwSaONfr9ki5SluR6N4_h_eo0qM12i8",
+	    authDomain: "mobileappdevelopment-17-18.firebaseapp.com",
+	    databaseURL: "https://mobileappdevelopment-17-18.firebaseio.com",
+	    projectId: "mobileappdevelopment-17-18",
+	    storageBucket: "mobileappdevelopment-17-18.appspot.com",
+	    messagingSenderId: "543620889214"
+	  };
+	  firebase.initializeApp(config);
+
+    </script>
+    <script src="scripts/main.js"></script>
+</div>
+</body>
+
+
+</html>
+

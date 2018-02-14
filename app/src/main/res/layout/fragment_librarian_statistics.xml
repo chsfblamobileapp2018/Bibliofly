@@ -1,0 +1,624 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context="com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.Librarian.LibrarianStatisticsFragment">
+
+        <!-- TODO: Update blank fragment layout -->
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsTotalBooksCheckedOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/statisticsTotalBooksCheckedOutValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="456"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsTotalBooksCheckedOutLabel" />
+
+                <TextView
+                    android:id="@+id/statisticsTotalBooksCheckedOutLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Total # of Books Checked Out"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsCurrentlyCheckedOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsTotalBooksCheckedOut">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/statisticsCurrentlyCheckedOutValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="123"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsCurrentlyCheckedOutLabel" />
+
+                <TextView
+                    android:id="@+id/statisticsCurrentlyCheckedOutLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="# of Books Currently Checked Out"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsAverageCheckoutTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsCurrentlyCheckedOut">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/statisticsAverageCheckoutTimeValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="1 week 2 days"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsAverageCheckoutTimeLabel" />
+
+                <TextView
+                    android:id="@+id/statisticsAverageCheckoutTimeLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="27dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Average Checkout Time"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsMostPopularBooks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsAverageCheckoutTime">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/statisticsMostPopularBooksImage3"
+                    android:layout_width="48dp"
+                    android:layout_height="74dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksDivider2"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksSubtitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostPopularBooksValue3"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksValue3" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksValue3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostPopularBooksImage3"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksDivider2" />
+
+                <ImageView
+                    android:id="@+id/statisticsMostPopularBooksImage2"
+                    android:layout_width="48dp"
+                    android:layout_height="74dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksDivider"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostPopularBooksValue2"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksValue2" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksValue2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostPopularBooksImage2"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksDivider" />
+
+                <ImageView
+                    android:id="@+id/statisticsMostPopularBooksImage"
+                    android:layout_width="64dp"
+                    android:layout_height="98dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/statisticsMostPopularBooksDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksLabel"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostPopularBooksValue"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksValue" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostPopularBooksImage"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksLabel" />
+
+                <View
+                    android:id="@+id/statisticsMostPopularBooksDivider"
+                    style="@style/Divider"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksSubtitle" />
+
+                <View
+                    android:id="@+id/statisticsMostPopularBooksDivider2"
+                    style="@style/Divider"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooksImage2" />
+
+                <TextView
+                    android:id="@+id/statisticsMostPopularBooksLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Most Popular Books"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsMostRequestedBooks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsAverageCheckoutTime">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/statisticsMostRequestedBooksImage3"
+                    android:layout_width="48dp"
+                    android:layout_height="74dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksDivider2"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksSubtitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostRequestedBooksValue3"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksValue3" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksValue3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostRequestedBooksImage3"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksDivider2" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostRequestedBooksValue2"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksValue2" />
+
+                <View
+                    android:id="@+id/statisticsMostRequestedBooksDivider"
+                    style="@style/Divider"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksSubtitle" />
+
+                <View
+                    android:id="@+id/statisticsMostRequestedBooksDivider2"
+                    style="@style/Divider"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksImage2" />
+
+                <ImageView
+                    android:id="@+id/statisticsMostRequestedBooksImage2"
+                    android:layout_width="48dp"
+                    android:layout_height="74dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksDivider"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksValue2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Medium"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostRequestedBooksImage2"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksDivider" />
+
+                <ImageView
+                    android:id="@+id/statisticsMostRequestedBooksImage"
+                    android:layout_width="64dp"
+                    android:layout_height="98dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/statisticsMostRequestedBooksDivider"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksLabel"
+                    app:srcCompat="@mipmap/app_logo" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="@+id/statisticsMostRequestedBooksValue"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksValue" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Data not available"
+                    android:textAppearance="@android:style/TextAppearance.Material.Large"
+                    app:layout_constraintStart_toEndOf="@+id/statisticsMostRequestedBooksImage"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostRequestedBooksLabel" />
+
+                <TextView
+                    android:id="@+id/statisticsMostRequestedBooksLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="31dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Most Requested Books"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsMostActiveReader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsMostPopularBooks3">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderValue" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Data not available"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderLabel" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Most Active Readers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/statisticsMostActiveReaderDivider"
+                    style="@style/Divider"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderSubtitle" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderValue2" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderValue2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Data not available"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderDivider" />
+
+                <View
+                    android:id="@+id/statisticsMostActiveReaderDivider2"
+                    style="@style/Divider"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderSubtitle2" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderSubtitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="N/A"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderValue3" />
+
+                <TextView
+                    android:id="@+id/statisticsMostActiveReaderValue3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Data not available"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReaderDivider2" />
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsNumberOfCheckouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsMostActiveReader3">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/statisticsNumberOfCheckoutsLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Number of Checkouts Per Day"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/checkOut"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsNumberOfCheckoutsLabel">
+
+                </com.github.mikephil.charting.charts.BarChart>
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/statisticsNumberOfCheckins"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statisticsNumberOfCheckouts">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/statisticsNumberOfCheckinsLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Number of Book Returns Per Day"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/checkIn"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/statisticsNumberOfCheckinsLabel" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+
+</ScrollView>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign In</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="SignInStyle.css">
+
+</head>
+<body>
+  <div class="imgcontainer">
+    <img src="res/icon.jpg" alt="Company Logo" class="avatar">
+  </div>
+
+  <h1 align="center">Bibliofly Librarian Login</h1>
+
+  <div class="container">
+    <label for="uname"><b>Email</b></label>
+    <input type="text" placeholder="Enter Librarian Email" name="uname" id="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Librarian Password" name="psw" id="password" required>
+
+    <button type="submit" id="login" onclick="login();">Login</button>
+  
+  </div>
+
+	
+	<script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyB-xwSaONfr9ki5SluR6N4_h_eo0qM12i8",
+	    authDomain: "mobileappdevelopment-17-18.firebaseapp.com",
+	    databaseURL: "https://mobileappdevelopment-17-18.firebaseio.com",
+	    projectId: "mobileappdevelopment-17-18",
+	    storageBucket: "mobileappdevelopment-17-18.appspot.com",
+	    messagingSenderId: "543620889214"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script src="scripts/signin.js"></script>
+</body>
+</html>
