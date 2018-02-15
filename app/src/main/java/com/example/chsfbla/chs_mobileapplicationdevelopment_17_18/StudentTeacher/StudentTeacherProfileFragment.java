@@ -40,6 +40,8 @@ import java.util.List;
  */
 public class StudentTeacherProfileFragment extends Fragment {
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
     ScrollView scrollView;
     ListView listViewHolds;
     ListView listViewCheckedOut;
@@ -59,6 +61,8 @@ public class StudentTeacherProfileFragment extends Fragment {
     public DatabaseReference database;
     public static String name = "Profile";
 
+    int numCopies;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +74,7 @@ public class StudentTeacherProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // do your variables initialisations here except Views!!!
 
-        context = this.getContext();
+        context = getActivity().getApplicationContext();
     }
 
     public void loadData() {
@@ -89,7 +93,7 @@ public class StudentTeacherProfileFragment extends Fragment {
         database = FirebaseDatabase.getInstance().getReference();
         database.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 booksCheckedOut.clear();
                 booksOnHold.clear();
                 name = "Profile";//dataSnapshot.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Name").getValue().toString();
@@ -101,18 +105,14 @@ public class StudentTeacherProfileFragment extends Fragment {
                 DataSnapshot d2 = dataSnapshot.child("Users").child(uid).child("BooksOnHold");
                 String status = dataSnapshot.child("Users").child(uid).child("Status").getValue().toString();
                 //Iterate through all checked-out books
-                Iterator i = d.getChildren().iterator();
-                while (i.hasNext()) {
+                for (DataSnapshot book : d.getChildren()) {
                     //Get the barcode and date checked out from the child
-                    DataSnapshot book = (DataSnapshot) (i.next());
                     final String barcode = book.getKey().toString();
                     long date = Long.parseLong(book.getValue().toString());
 
                     //Iterate through the Barcodes root and find which ISBN this Barcode is mapped to
-                    Iterator i2 = dataSnapshot.child("Barcodes").getChildren().iterator();
                     String isbn = null;
-                    while (i2.hasNext()) {
-                        DataSnapshot currBarcode = (DataSnapshot) (i2.next());
+                    for (DataSnapshot currBarcode : dataSnapshot.child("Barcodes").getChildren()) {
                         Log.v("CurrBarcode", currBarcode.toString());
                         //If this is the right barcode, get the isbn value from the key and set it to the isbn variable
                         if (currBarcode.getKey().equals(barcode)) {
@@ -121,9 +121,7 @@ public class StudentTeacherProfileFragment extends Fragment {
                         }
                     }
                     //Iterate through the Books root and find the information about this specific ISBN
-                    Iterator i3 = dataSnapshot.child("Books").getChildren().iterator();
-                    while (i3.hasNext()) {
-                        DataSnapshot currISBN = (DataSnapshot) (i3.next());
+                    for (DataSnapshot currISBN : dataSnapshot.child("Books").getChildren()) {
                         //If this is the right ISBN, get the Title and date checked out, and add this info to the arraylist
                         if (currISBN.getKey().equals(isbn)) {
                             String title = currISBN.child("Title").getValue().toString();
@@ -153,18 +151,24 @@ public class StudentTeacherProfileFragment extends Fragment {
 
                 }
                 //Iterate through to get information on holds
-                Iterator i2 = d2.getChildren().iterator();
-                while (i2.hasNext()) {
+                for (DataSnapshot book : d2.getChildren()) { // Go through each hold the user has
+
                     //Find the isbn and the order in line that the user is in
-                    DataSnapshot book = (DataSnapshot) (i2.next());
-                    String isbn1 = book.getKey().toString();
-                    String order = book.getValue().toString();
+                    final String isbn1 = book.getKey().toString();
+                    final String order = book.getValue().toString();
+
+                    DataSnapshot barcodes = dataSnapshot.child("Barcodes");
+
+                    int copies = numCopies(isbn1, barcodes);
+                    int checkedOut = numCheckedOut(isbn1, barcodes);
+
+                    numCopies = copies - checkedOut;
+                    Log.e("COPIES", "" + copies);
+                    Log.e("HOLDS", "" + checkedOut);
 
                     Log.v("Held ISBN:", isbn1);
                     //Iterate through the Books root to find the ISBN, at which point we will get the title and, along with the order, put this in the arraylist
-                    Iterator i3 = dataSnapshot.child("Books").getChildren().iterator();
-                    while (i3.hasNext()) {
-                        DataSnapshot currISBN = (DataSnapshot) (i3.next());
+                    for (DataSnapshot currISBN : dataSnapshot.child("Books").getChildren()) {
                         Log.v("CurrISBN", currISBN.getKey());
                         if (currISBN.getKey().toString().equals(isbn1)) {
                             String title = currISBN.child("Title").getValue().toString();
@@ -176,13 +180,14 @@ public class StudentTeacherProfileFragment extends Fragment {
                             title = (title.length() > 23) ? title.substring(0, 20) + "..." : title;
 
                             String description = "You are in position #" + order;
+                            if (Integer.valueOf(order) <= numCopies)
+                                description += " (Available for pickup)";
 
                             Log.v("Title of Held ISBN", title);
                             booksOnHold.add(new BookProfile(url, title, author, description));
                             break;
                         }
                     }
-
                 }
                 //Notify the adapters that the arraylists have changed, and that they have to update info
                 adapterHolds.notifyDataSetChanged();
@@ -197,6 +202,8 @@ public class StudentTeacherProfileFragment extends Fragment {
                 setListViewHeight(listViewHolds);
 
                 scrollView.setVisibility(View.VISIBLE);
+
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -208,9 +215,40 @@ public class StudentTeacherProfileFragment extends Fragment {
         });
     }
 
+    private int numCheckedOut(final String isbn, DataSnapshot dataSnapshot) {
+        int holdees = 0;
+        //find the number of copies that are checked out
+        for (DataSnapshot barcode : dataSnapshot.getChildren()) {
+            if (barcode.child("ISBN").getValue().toString().equals(isbn)) {
+                if (barcode.hasChild("CheckedOut") &&
+                        !barcode.child("CheckedOut").getValue().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        && !barcode.child("CheckedOut").getValue().toString().isEmpty()) {
+                    holdees++;
+                }
+            }
+        }
+
+        return holdees;
+    }
+
+    //check how many copies of an isbn exisit.
+    public static int numCopies(final String isbn, DataSnapshot dataSnapshot) {
+        int copies = 0;
+        for (DataSnapshot barcode : dataSnapshot.getChildren()) {
+            String tempISBN = barcode.child("ISBN").getValue().toString();
+            if (isbn.equals(tempISBN)) copies++;
+        }
+
+        return copies;
+
+    }
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // initialize our views
+
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.profileSwipeRefresh);
+
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         listViewHolds = (ListView) view.findViewById(R.id.profileHoldsListView);
         listViewCheckedOut = (ListView) view.findViewById(R.id.profileCheckedOutListView);
@@ -229,6 +267,12 @@ public class StudentTeacherProfileFragment extends Fragment {
 
         loadData();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+            }
+        });
 
         // Holds share button pressed
         holdsShare.setOnClickListener(new View.OnClickListener() {
@@ -349,6 +393,7 @@ public class StudentTeacherProfileFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
     public static String getName() {

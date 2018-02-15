@@ -146,7 +146,7 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
                         //Send a bug report via email using email intent.
                         Intent intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("text/html");
-                        intent.putExtra(Intent.EXTRA_EMAIL,new String[] { "biblioflyfbla@gmail.com" });
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"biblioflyfbla@gmail.com"});
                         intent.putExtra(Intent.EXTRA_SUBJECT, "Bibliofly Bug Report");
                         intent.putExtra(Intent.EXTRA_TEXT, "My bug...");
 
@@ -360,7 +360,31 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    DataSnapshot temp = dataSnapshot;
+
+                    //book can't be checked out.
+                    final Snackbar tooManyBooksSnackbar = Snackbar.make(coordinatorLayout, "You have too many books checked out", Snackbar.LENGTH_INDEFINITE);
+                    tooManyBooksSnackbar.setAction("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            tooManyBooksSnackbar.dismiss();
+                        }
+                    });
+
+                    String status = dataSnapshot.child("Users").child(uid).child("Status").getValue().toString();
+                    long numberOfBooksCheckedOut = dataSnapshot.child("Users").child(uid).child("BooksCheckedOut").getChildrenCount();
+
+                    //quota of 3 books per student, 5 per teacher
+                    if(status.equals("Student") && numberOfBooksCheckedOut>=3){
+                        Log.e("TOO MANY BOOKS", "TOO MANY BOOKS");
+                        tooManyBooksSnackbar.show();
+                        return;
+                    } else if(status.equals("Teacher") && numberOfBooksCheckedOut>=5) {
+                        Log.e("TOO MANY BOOKS", "TOO MANY BOOKS");
+                        tooManyBooksSnackbar.show();
+                        return;
+                    }
+
+                        DataSnapshot temp = dataSnapshot;
                     dataSnapshot = dataSnapshot.child("Barcodes");
                     if (dataSnapshot.hasChild(code))
                         dataSnapshot = dataSnapshot.child(code).child("ISBN");
@@ -633,24 +657,37 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
     }
 
 
-    public static void setDateNotification(Context c, String title, String bc, String link) {
-        AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
-        Intent notificationIntent = new Intent(c, AlarmReceiver.class);
+    public static void setDateNotification(final Context c, final String title, final String bc, final String link) {
+        final AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+        final Intent notificationIntent = new Intent(c, AlarmReceiver.class);
         notificationIntent.putExtra("Barcode", bc);
         notificationIntent.putExtra("Title", title);
         notificationIntent.putExtra("User", FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
         notificationIntent.putExtra("link", link);
 
-        PendingIntent broadcast = PendingIntent.getBroadcast(c, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 0);
-        cal.add(Calendar.SECOND, 10); //CHANGE TO 2 WEEKS
-        Log.e("SetDateNotification", ""+cal.getTimeInMillis());
-        //code to add 2 weeks, UNCOMMENT THIS BEFORE PRODUCTION!
-        //cal.add(Calendar.WEEK_OF_YEAR, 2);
+        //Check if they are a student/teacher and add appropriate # weeks
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).child("Status");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PendingIntent broadcast = PendingIntent.getBroadcast(c, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.WEEK_OF_YEAR, 2);
+                if (dataSnapshot.getValue().toString().equals("Teacher")) {
+                    cal.add(Calendar.WEEK_OF_YEAR, 1);
+                }
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+            }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
+
     public static void setDateNotificationOverdue(Context c, String title, String bc, String link) {
         AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
         Intent notificationIntent = new Intent(c, AlarmReceiver.class);
@@ -662,7 +699,7 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MINUTE, 0);
         cal.add(Calendar.SECOND, 5);//CHANGE TO 1 DAY
-        Log.e("OverdueDateNotification", ""+cal.getTimeInMillis());
+        Log.e("OverdueDateNotification", "" + cal.getTimeInMillis());
         //code to add 2 weeks, UNCOMMENT THIS BEFORE PRODUCTION!
         //cal.add(Calendar.WEEK_OF_YEAR, 2);
 

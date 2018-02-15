@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.Book;
 import com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.Librarian.StatisticUtils;
@@ -41,6 +42,7 @@ import com.klinker.android.sliding.SlidingActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /*
 This is the StudentTeacherBookDetail activity; it is the screen that is opened whenever a user clicks to see more information
@@ -51,15 +53,15 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
     int position = -1;
 
     ProgressBar detailProgressBar;
-    Button      detailPlaceHoldButton;
-    ImageView   detailHoldImageView;
-    TextView    detailHoldPlacedLabel;
-    TextView    detailAuthor;
-    ImageView   detailAuthorImageView;
-    TextView    detailDescriptionLabel;
-    TextView    detailDescription;
-    TextView    detailRatingLabel;
-    RatingBar   detailRating;
+    Button detailPlaceHoldButton;
+    ImageView detailHoldImageView;
+    TextView detailHoldPlacedLabel;
+    TextView detailAuthor;
+    ImageView detailAuthorImageView;
+    TextView detailDescriptionLabel;
+    TextView detailDescription;
+    TextView detailRatingLabel;
+    RatingBar detailRating;
 
     DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
     DatabaseReference holds;
@@ -67,6 +69,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
     boolean holdPlaced;
 
     private int numCopies;
+
     //the following init method is comparable to the onCreate() method of our other activites
     @Override
     public void init(Bundle savedInstanceState) {
@@ -102,16 +105,16 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
 
         setContent(R.layout.activity_student_teacher_book_detail);
         //initialize views that will be used later
-        detailProgressBar       = (ProgressBar) findViewById(R.id.detailProgressBar);
-        detailPlaceHoldButton   = (Button)      findViewById(R.id.detailPlaceHoldButton);
-        detailHoldImageView   = (ImageView)   findViewById(R.id.detailHoldImageView);
-        detailHoldPlacedLabel   = (TextView)    findViewById(R.id.detailHoldPlacedLabel);
-        detailAuthor            = (TextView)    findViewById(R.id.detailAuthor);
-        detailAuthorImageView   = (ImageView)   findViewById(R.id.detailAuthorImageView);
-        detailDescriptionLabel  = (TextView)    findViewById(R.id.detailDescriptionLabel);
-        detailDescription       = (TextView)    findViewById(R.id.detailDescription);
-        detailRatingLabel       = (TextView)    findViewById(R.id.detailRatingLabel);
-        detailRating            = (RatingBar)   findViewById(R.id.detailRating);
+        detailProgressBar = (ProgressBar) findViewById(R.id.detailProgressBar);
+        detailPlaceHoldButton = (Button) findViewById(R.id.detailPlaceHoldButton);
+        detailHoldImageView = (ImageView) findViewById(R.id.detailHoldImageView);
+        detailHoldPlacedLabel = (TextView) findViewById(R.id.detailHoldPlacedLabel);
+        detailAuthor = (TextView) findViewById(R.id.detailAuthor);
+        detailAuthorImageView = (ImageView) findViewById(R.id.detailAuthorImageView);
+        detailDescriptionLabel = (TextView) findViewById(R.id.detailDescriptionLabel);
+        detailDescription = (TextView) findViewById(R.id.detailDescription);
+        detailRatingLabel = (TextView) findViewById(R.id.detailRatingLabel);
+        detailRating = (RatingBar) findViewById(R.id.detailRating);
         //save the color of our button so that if the user holds and un-holds, we can keep this color scheme
         final int buttonColor = detailPlaceHoldButton.getCurrentTextColor();
 
@@ -135,7 +138,6 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
         hide(detailPlaceHoldButton);
         hide(detailHoldImageView);
         hide(detailHoldPlacedLabel);
-
 
 
         final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -174,6 +176,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                     detailHoldPlacedLabel.setText("Hold placed. You are " + position + suffix(position) + " in line.");
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -185,7 +188,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
             public void onClick(View v) {
                 Log.e("detail place hold", "hold");
                 //if the user has placed a hold and they click the button, they intend to remove their hold, so we remove their uid from the hold list
-                if (holdPlaced){
+                if (holdPlaced) {
                     holds.child(uid).removeValue();
                     userHold.child(book.isbn).removeValue();
                     //set notification
@@ -196,7 +199,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                             Log.v("Moving everyone up", "In OnDataChange");
                             for (DataSnapshot d : dataSnapshot.getChildren()) {
                                 String uid = d.getKey();
-                                Log.v("Moving " + uid + " to", ""+position);
+                                Log.v("Moving " + uid + " to", "" + position);
                                 reference.child("Users").child(uid).child("BooksOnHold").child(book.isbn).setValue(position);
                                 position++;
                             }
@@ -274,58 +277,50 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
 
                         }
                     });
-                }
-                else {
-
-                    //this means that the user wants to PLACE a hold - add their UID as the key, and the current time as the value
-                    holds.child(uid).setValue("" + System.currentTimeMillis());
-                    //find their current position in line, just like how do we did before
-                    holds.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
+                } else {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int i = 1;
-                            position = -1;
-                            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                                if (d.getKey().equals(uid)) {
-                                    position = i;
-                                    break;
+                            DataSnapshot temp = dataSnapshot;
+                            if (dataSnapshot.child("Users").child(uid).hasChild("BooksCheckedOut")) {
+                                dataSnapshot = dataSnapshot.child("Users").child(uid).child("BooksCheckedOut");
+
+                                Iterator barcodes = dataSnapshot.getChildren().iterator();
+                                while (barcodes.hasNext()) {
+                                    String bc = ((DataSnapshot) (barcodes.next())).getKey().toString();
+
+                                    if (temp.child("Barcodes").child(bc).child("ISBN").getValue().toString().equals(book.isbn)) {
+                                        Toast.makeText(StudentTeacherBookDetailActivity.this, "Book already checked out",
+                                                Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
                                 }
-                                i++;
                             }
-                            userHold.child(book.isbn).setValue(position);
 
-                            //Update Number of Holds for that Book by incrementing
-                            StatisticUtils.getNumberOfHoldsForBook(book.isbn, new StatisticsCallback() {
+                            //this means that the user wants to PLACE a hold - add their UID as the key, and the current time as the value
+                            holds.child(uid).setValue("" + System.currentTimeMillis());
+                            //find their current position in line, just like how do we did before
+                            holds.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onCallback(int value) {
-                                    Log.e("Hella", "In the hold section");
-                                    reference.child("Statistics").child("MostNumberOfHolds").child(book.isbn.toString()).setValue(value + 1);
-                                }
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    int i = 1;
+                                    position = -1;
+                                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                                        if (d.getKey().equals(uid)) {
+                                            position = i;
+                                            break;
+                                        }
+                                        i++;
+                                    }
+                                    userHold.child(book.isbn).setValue(position);
 
-                                @Override
-                                public void onCallback(long value) {
-
-                                }
-
-                                @Override
-                                public void onCallback(ArrayList<String[]> value) {
-
-                                }
-
-                                @Override
-                                public void onCallback(HashMap<String, Integer> value) {
-
-                                }
-                            });
-                            StatisticUtils.getNumberOfCopiesOfBook(book.isbn, new StatisticsCallback() {
-                                @Override
-                                public void onCallback(int value) {
-                                    numCopies = value;
+                                    //Update Number of Holds for that Book by incrementing
                                     StatisticUtils.getNumberOfHoldsForBook(book.isbn, new StatisticsCallback() {
                                         @Override
                                         public void onCallback(int value) {
-                                            double databaseValue = (value == 0) ? 0 : ((double) numCopies) / value;
-                                            reference.child("Statistics").child("Backlog").child(book.isbn).setValue(databaseValue);
+                                            Log.e("Hella", "In the hold section");
+                                            reference.child("Statistics").child("MostNumberOfHolds").child(book.isbn.toString()).setValue(value + 1);
                                         }
 
                                         @Override
@@ -343,24 +338,57 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
 
                                         }
                                     });
+                                    StatisticUtils.getNumberOfCopiesOfBook(book.isbn, new StatisticsCallback() {
+                                        @Override
+                                        public void onCallback(int value) {
+                                            numCopies = value;
+                                            StatisticUtils.getNumberOfHoldsForBook(book.isbn, new StatisticsCallback() {
+                                                @Override
+                                                public void onCallback(int value) {
+                                                    double databaseValue = (value == 0) ? 0 : ((double) numCopies) / value;
+                                                    reference.child("Statistics").child("Backlog").child(book.isbn).setValue(databaseValue);
+                                                }
+
+                                                @Override
+                                                public void onCallback(long value) {
+
+                                                }
+
+                                                @Override
+                                                public void onCallback(ArrayList<String[]> value) {
+
+                                                }
+
+                                                @Override
+                                                public void onCallback(HashMap<String, Integer> value) {
+
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCallback(long value) {
+
+                                        }
+
+                                        @Override
+                                        public void onCallback(ArrayList<String[]> value) {
+
+                                        }
+
+                                        @Override
+                                        public void onCallback(HashMap<String, Integer> value) {
+
+                                        }
+                                    });
+
                                 }
 
                                 @Override
-                                public void onCallback(long value) {
-
-                                }
-
-                                @Override
-                                public void onCallback(ArrayList<String[]> value) {
-
-                                }
-
-                                @Override
-                                public void onCallback(HashMap<String, Integer> value) {
+                                public void onCancelled(DatabaseError databaseError) {
 
                                 }
                             });
-
                         }
 
                         @Override
@@ -372,6 +400,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
             }
         });
     }
+
     //a simple function to convert any integer to a string with a suffix after ("st", "nd", etc)
     private String suffix(int position) {
 
@@ -395,6 +424,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
     public void hide(View v) {
         v.setVisibility(View.INVISIBLE);
     }
+
     //this is a function that blurs an image to create a more aesthetic look/portray the cover as a background, not foreground
     public Bitmap blur(Bitmap image) {
         if (image == null) return null;
@@ -412,6 +442,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
         tmpOut.copyTo(outputBitmap);
         return outputBitmap;
     }
+
     //this is a function that darkens an image to create a more aesthetic look/portray the cover as a background, not foreground
     private Bitmap darkenBitMap(Bitmap bm) {
 
@@ -424,6 +455,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
 
         return bm;
     }
+
     //This method changes the rgb values by a scalar to either darken/lighten the image
     public static int manipulateColor(int color, float factor) {
         int a = Color.alpha(color);
