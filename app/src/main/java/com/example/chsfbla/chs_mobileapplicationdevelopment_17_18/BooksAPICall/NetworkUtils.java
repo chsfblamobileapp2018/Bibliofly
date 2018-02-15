@@ -8,7 +8,6 @@ package com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.BooksAPICall;
 
 
 import android.net.Uri;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +18,6 @@ import java.net.URL;
 
 public class NetworkUtils {
 
-    public static final String LOG_TAG = "MobileAppLogTag";
     //Base URL for the Books API
     private static final String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
     private static final String QUERY_PARAM = "q";
@@ -77,7 +75,6 @@ public class NetworkUtils {
                     e.printStackTrace();
                 }
             }
-            Log.i(LOG_TAG, bookJSONString);
 
             return bookJSONString;
         }

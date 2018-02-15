@@ -4,7 +4,6 @@ package com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.Librarian;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -466,7 +465,6 @@ public class LibrarianStatisticsFragment extends Fragment {
 
                 @Override
                 public void onCallback(HashMap<String, Integer> value) {
-                    Log.e("Hella", value.toString());
                     List<BarEntry> entries = new ArrayList<>();
                     try {
                         entries.add(new BarEntry(0f, value.get("Monday")));
@@ -516,7 +514,6 @@ public class LibrarianStatisticsFragment extends Fragment {
 
                 @Override
                 public void onCallback(HashMap<String, Integer> value) {
-                    Log.e("Hella", value.toString());
                     List<BarEntry> entries = new ArrayList<>();
                     try {
                         entries.add(new BarEntry(0f, value.get("Monday")));

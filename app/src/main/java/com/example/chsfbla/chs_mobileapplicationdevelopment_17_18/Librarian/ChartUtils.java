@@ -1,8 +1,5 @@
 package com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.Librarian;
 
-import android.graphics.Color;
-
-import com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -28,7 +25,7 @@ public class ChartUtils {
         barChart.getDescription().setEnabled(false);
         //add the standard material colors to the graph for stylistic purposes.
         dataset.setColors(ColorTemplate.MATERIAL_COLORS);
-        //remove the legend
+        //remove the lege`nd
         barChart.getLegend().setEnabled(false);
 
         //remove right axis and grid lines for stylistic purposes.

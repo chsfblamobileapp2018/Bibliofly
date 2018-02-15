@@ -20,7 +20,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -203,13 +202,11 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
                     queryTokens.add(st.nextToken().toLowerCase());
                 }
 
-                Log.e("TAG", queryTokens.toString());
 
                 for (String currQuery : queryTokens) {
                     htmlText = htmlText.replaceAll("(?i)" + currQuery, "<font color=#999999>" + currQuery + "</font>");
                 }
 
-                Log.e("TAG", "Formatting " + body + ": " + htmlText);
 
                 textView.setText(Html.fromHtml(htmlText));
             }
@@ -355,8 +352,6 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
             final String code = data.getStringExtra("Result");
             final String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            Log.e("CHECKED OUT BARCODE", code);
-
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -374,17 +369,15 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
                     long numberOfBooksCheckedOut = dataSnapshot.child("Users").child(uid).child("BooksCheckedOut").getChildrenCount();
 
                     //quota of 3 books per student, 5 per teacher
-                    if(status.equals("Student") && numberOfBooksCheckedOut>=3){
-                        Log.e("TOO MANY BOOKS", "TOO MANY BOOKS");
+                    if (status.equals("Student") && numberOfBooksCheckedOut >= 3) {
                         tooManyBooksSnackbar.show();
                         return;
-                    } else if(status.equals("Teacher") && numberOfBooksCheckedOut>=5) {
-                        Log.e("TOO MANY BOOKS", "TOO MANY BOOKS");
+                    } else if (status.equals("Teacher") && numberOfBooksCheckedOut >= 5) {
                         tooManyBooksSnackbar.show();
                         return;
                     }
 
-                        DataSnapshot temp = dataSnapshot;
+                    DataSnapshot temp = dataSnapshot;
                     dataSnapshot = dataSnapshot.child("Barcodes");
                     if (dataSnapshot.hasChild(code))
                         dataSnapshot = dataSnapshot.child(code).child("ISBN");
@@ -697,11 +690,7 @@ public class StudentTeacherHomeActivity extends AppCompatActivity implements Stu
         notificationIntent.putExtra("link", link);
         PendingIntent broadcast = PendingIntent.getBroadcast(c, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 0);
-        cal.add(Calendar.SECOND, 5);//CHANGE TO 1 DAY
-        Log.e("OverdueDateNotification", "" + cal.getTimeInMillis());
-        //code to add 2 weeks, UNCOMMENT THIS BEFORE PRODUCTION!
-        //cal.add(Calendar.WEEK_OF_YEAR, 2);
+        cal.add(Calendar.DAY_OF_YEAR, 1);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
     }

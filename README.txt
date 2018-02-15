@@ -77,6 +77,8 @@ Open this link to the Online Library Portal. To log in, use the credentials
 	Email:      librarian@chs.org
     Password:   welovebooks
 
+A default CSV file of accounts is provided in the project folder (defaultData.csv).
+
 
 To run the Bibliofly App:
 

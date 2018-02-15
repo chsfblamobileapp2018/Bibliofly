@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +78,6 @@ public class StudentTeacherProfileFragment extends Fragment {
 
     public void loadData() {
 
-        progress.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.INVISIBLE);
 
         //Clear our arraylists that hold the old data
@@ -113,11 +111,9 @@ public class StudentTeacherProfileFragment extends Fragment {
                     //Iterate through the Barcodes root and find which ISBN this Barcode is mapped to
                     String isbn = null;
                     for (DataSnapshot currBarcode : dataSnapshot.child("Barcodes").getChildren()) {
-                        Log.v("CurrBarcode", currBarcode.toString());
                         //If this is the right barcode, get the isbn value from the key and set it to the isbn variable
                         if (currBarcode.getKey().equals(barcode)) {
                             isbn = currBarcode.child("ISBN").getValue().toString();
-                            Log.v("Checked out ISBN:", isbn);
                         }
                     }
                     //Iterate through the Books root and find the information about this specific ISBN
@@ -127,8 +123,6 @@ public class StudentTeacherProfileFragment extends Fragment {
                             String title = currISBN.child("Title").getValue().toString();
                             String url = currISBN.child("URL").getValue().toString();
                             String author = currISBN.child("Author").getValue().toString();
-
-                            Log.e("LENGTHLENGTHLENGTH", title + "////////" + title.length());
 
                             title = (title.length() > 23) ? title.substring(0, 20) + "..." : title;
 
@@ -143,7 +137,6 @@ public class StudentTeacherProfileFragment extends Fragment {
 
                             String description = "Due on " + month + "/" + day + "/" + year;
 
-                            Log.v("Title of Checked ISBN", title);
                             booksCheckedOut.add(new BookProfile(url, title, author, description));
                             break;
                         }
@@ -163,19 +156,13 @@ public class StudentTeacherProfileFragment extends Fragment {
                     int checkedOut = numCheckedOut(isbn1, barcodes);
 
                     numCopies = copies - checkedOut;
-                    Log.e("COPIES", "" + copies);
-                    Log.e("HOLDS", "" + checkedOut);
 
-                    Log.v("Held ISBN:", isbn1);
                     //Iterate through the Books root to find the ISBN, at which point we will get the title and, along with the order, put this in the arraylist
                     for (DataSnapshot currISBN : dataSnapshot.child("Books").getChildren()) {
-                        Log.v("CurrISBN", currISBN.getKey());
                         if (currISBN.getKey().toString().equals(isbn1)) {
                             String title = currISBN.child("Title").getValue().toString();
                             String url = currISBN.child("URL").getValue().toString();
                             String author = currISBN.child("Author").getValue().toString();
-
-                            Log.e("LENGTHLENGTHLENGTH", title + "////////" + title.length());
 
                             title = (title.length() > 23) ? title.substring(0, 20) + "..." : title;
 
@@ -183,7 +170,6 @@ public class StudentTeacherProfileFragment extends Fragment {
                             if (Integer.valueOf(order) <= numCopies)
                                 description += " (Available for pickup)";
 
-                            Log.v("Title of Held ISBN", title);
                             booksOnHold.add(new BookProfile(url, title, author, description));
                             break;
                         }
@@ -256,11 +242,6 @@ public class StudentTeacherProfileFragment extends Fragment {
         holdsShare = (ImageView) view.findViewById(R.id.holdsShare);
         checkedOutShare = (ImageView) view.findViewById(R.id.checkedOutShare);
 
-        //initialize the cards which tell the librarians how many books are checked out
-        CardView checkedOutCard = (CardView) view.findViewById(R.id.profileCardViewCheckedOut);
-        //card which tells librarians how many books on hold initialization.
-        CardView holdCard = (CardView) view.findViewById(R.id.profileCardViewHolds);
-
         //loading
         progress.setVisibility(View.VISIBLE);
         scrollView.setVisibility(View.INVISIBLE);
@@ -278,13 +259,11 @@ public class StudentTeacherProfileFragment extends Fragment {
         holdsShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v("hold share", "About to share!");
                 holdsList.clear();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Log.v("hold share", dataSnapshot.toString());
                         Iterator userData = dataSnapshot.child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).child("BooksOnHold").getChildren().iterator();
                         while (userData.hasNext()) {
                             DataSnapshot book = (DataSnapshot) userData.next();
@@ -294,7 +273,6 @@ public class StudentTeacherProfileFragment extends Fragment {
                         }
 
                         //make a message for social media.
-                        Log.v("holds share", holdsList.toString());
                         String text = "I can't wait to read";
                         for (int i = 0; i < holdsList.size(); i++) {
                             if (i == holdsList.size() - 1) text += (" and");
@@ -340,7 +318,6 @@ public class StudentTeacherProfileFragment extends Fragment {
                             String isbn = dataSnapshot.child("Barcodes").child(barcode).child("ISBN").getValue().toString();
                             String title = dataSnapshot.child("Books").child(isbn).child("Title").getValue().toString();
                             checkedOutList.add(title);
-                            Log.v("checked out share", barcode + "," + isbn + "," + title);
                         }
 
                         //social media post creation.

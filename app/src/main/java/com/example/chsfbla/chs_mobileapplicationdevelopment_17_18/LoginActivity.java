@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -185,9 +183,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
                 final GoogleSignInAccount account = result.getSignInAccount();
-                Log.e("In the signin", account.getEmail());
                 AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-                Log.e("In the signin", credential.toString());
                 mAuth.signInWithCredential(credential)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -196,12 +192,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                     // Sign in success, update UI with the signed-in user's information
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     //CODE TO CHECK IF STUDENT/TEACHER OR LIBRARIAN
-                                    Log.e("Checking status", "Hello");
                                     final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(user.getUid());
                                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                            Log.e("Checking status", dataSnapshot.toString());
                                             googleApiClient.clearDefaultAccountAndReconnect();
                                             if (dataSnapshot.hasChild("Status")) {
                                                 //they already have an account
@@ -240,9 +234,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onStart() {
         super.onStart();
-//        if(mAuth.getCurrentUser()!=null){
-//            login.setText("Logout");
-//        }
         // Check if user is signed in (non-null) and update the current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
     }
@@ -250,9 +241,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     public void onResume() {
         super.onResume();
-//        if(mAuth.getCurrentUser()!=null){
-//            login.setText("Logout");
-//        }
     }
 
     @Override

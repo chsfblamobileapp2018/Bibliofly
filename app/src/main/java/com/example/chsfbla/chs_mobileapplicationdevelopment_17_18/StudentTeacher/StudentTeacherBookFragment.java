@@ -11,7 +11,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -204,7 +203,6 @@ class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
         bookViewHolder.author.setText(book.author);
         bookViewHolder.description.setText(book.description);
         bookViewHolder.ratingBar.setRating((float) book.rating);
-        Log.e("TAG", book.url);
         //Load the proper image into the imageView using the Glide framework
         Glide.with(StudentTeacherBookFragment.activity.getApplicationContext())
                 .load(book.url)

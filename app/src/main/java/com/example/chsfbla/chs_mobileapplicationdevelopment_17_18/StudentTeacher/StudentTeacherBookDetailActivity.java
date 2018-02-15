@@ -1,9 +1,5 @@
 package com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.StudentTeacher;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,7 +14,6 @@ import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -186,7 +180,6 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
         detailPlaceHoldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("detail place hold", "hold");
                 //if the user has placed a hold and they click the button, they intend to remove their hold, so we remove their uid from the hold list
                 if (holdPlaced) {
                     holds.child(uid).removeValue();
@@ -196,10 +189,8 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             position = 1;
-                            Log.v("Moving everyone up", "In OnDataChange");
                             for (DataSnapshot d : dataSnapshot.getChildren()) {
                                 String uid = d.getKey();
-                                Log.v("Moving " + uid + " to", "" + position);
                                 reference.child("Users").child(uid).child("BooksOnHold").child(book.isbn).setValue(position);
                                 position++;
                             }
@@ -208,7 +199,6 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                             StatisticUtils.getNumberOfHoldsForBook(book.isbn, new StatisticsCallback() {
                                 @Override
                                 public void onCallback(int value) {
-                                    Log.e("Hella", "In the hold section");
                                     reference.child("Statistics").child("MostNumberOfHolds").child(book.isbn).setValue(value - 1);
                                 }
 
@@ -319,7 +309,6 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                                     StatisticUtils.getNumberOfHoldsForBook(book.isbn, new StatisticsCallback() {
                                         @Override
                                         public void onCallback(int value) {
-                                            Log.e("Hella", "In the hold section");
                                             reference.child("Statistics").child("MostNumberOfHolds").child(book.isbn.toString()).setValue(value + 1);
                                         }
 
