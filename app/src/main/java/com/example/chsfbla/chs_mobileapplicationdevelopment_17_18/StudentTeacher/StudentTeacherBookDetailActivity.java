@@ -1,5 +1,9 @@
 package com.example.chsfbla.chs_mobileapplicationdevelopment_17_18.StudentTeacher;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -14,6 +18,7 @@ import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.klinker.android.sliding.SlidingActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -268,6 +274,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                         }
                     });
                 } else {
+
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -290,6 +297,7 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
 
                             //this means that the user wants to PLACE a hold - add their UID as the key, and the current time as the value
                             holds.child(uid).setValue("" + System.currentTimeMillis());
+                            setHoldNotification(getApplicationContext(), book.title, book.isbn, book.url);
                             //find their current position in line, just like how do we did before
                             holds.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -394,6 +402,10 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
     private String suffix(int position) {
 
         int lastDigit = position % 10;
+        int tensDigit = (position / 10) % 10;
+
+        if (tensDigit == 1) return "th";
+
         switch (lastDigit) {
             case 1:
                 return "st";
@@ -457,4 +469,26 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
                 Math.min(b, 255));
 
     }
+
+    public static void setHoldNotification(final Context c, final String title, final String isbn, final String link) {
+        if(FirebaseAuth.getInstance().getCurrentUser() == null) return;
+        final AlarmManager alarmManager = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
+        final Intent notificationIntent = new Intent(c, AlarmReceiver.class);
+        notificationIntent.putExtra("ISBN", isbn);
+        notificationIntent.putExtra("Title", title);
+
+        notificationIntent.putExtra("User", FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+        notificationIntent.putExtra("link", link);
+        Log.v("Hold Notif", title);
+        //Check if they are a student/teacher and add appropriate # weeks
+        PendingIntent broadcast = PendingIntent.getBroadcast(c, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar cal = Calendar.getInstance();
+        //cal.add(Calendar.DAY_OF_MONTH, 1);
+        cal.add(Calendar.SECOND, 10);
+        Log.v("HoldNotifTime", "" + cal.getTimeInMillis());
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
+
+
+    }
+
 }

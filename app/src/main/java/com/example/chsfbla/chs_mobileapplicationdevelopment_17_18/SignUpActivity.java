@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -67,6 +68,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     //notify the user that the sign up was succesful.
                                     Toast.makeText(SignUpActivity.this, "Authentication successful.",
                                             Toast.LENGTH_SHORT).show();
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    user.sendEmailVerification();
+
                                     /*Find the name of the user, as well as the "status", and save them to variables
                                       Then, find the UID of the user who just created an account, and set these values
                                       to that UID in the "Users" directory of the database

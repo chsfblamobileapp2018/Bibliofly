@@ -56,6 +56,7 @@ public class StudentTeacherBookFragment extends Fragment {
                 Intent i = new Intent(getContext(), StudentTeacherBookDetailActivity.class);
                 final Book book = list.get(position);
                 i.putExtra("Book", book);
+
                 //Get the image from the book's image url
                 Thread thread = new Thread(new Runnable() {
 

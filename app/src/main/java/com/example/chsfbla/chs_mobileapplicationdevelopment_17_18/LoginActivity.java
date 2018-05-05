@@ -56,6 +56,24 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         // Initialize FirebaseAuth instance
         mAuth = FirebaseAuth.getInstance();
 
+        if (mAuth.getCurrentUser() != null) {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString()).child("Status");
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue().toString().equals("Librarian")) {
+                        startActivity(new Intent(getApplicationContext(), LibrarianHomeActivity.class));
+                    } else
+                        startActivity(new Intent(getApplicationContext(), StudentTeacherHomeActivity.class));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
         // Intialize the widgets/views by using their ids
         gLogin = (SignInButton) findViewById(R.id.google_sign_in);
         signup = (TextView) findViewById(R.id.signUpLinkButton);

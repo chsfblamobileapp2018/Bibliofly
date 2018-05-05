@@ -4,3 +4,6 @@ Add Sketch file to XML (the search bar and everything)
 Create Database and start pushing data from user
 Finalize what tabs there should be
 Figure out how to create different Fragments
+
+Hello!
+Hi!
