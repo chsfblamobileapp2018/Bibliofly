@@ -483,8 +483,8 @@ public class StudentTeacherBookDetailActivity extends SlidingActivity {
         //Check if they are a student/teacher and add appropriate # weeks
         PendingIntent broadcast = PendingIntent.getBroadcast(c, 100, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar cal = Calendar.getInstance();
-        //cal.add(Calendar.DAY_OF_MONTH, 1);
-        cal.add(Calendar.SECOND, 10);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        //cal.add(Calendar.SECOND, 10);
         Log.v("HoldNotifTime", "" + cal.getTimeInMillis());
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), broadcast);
 
