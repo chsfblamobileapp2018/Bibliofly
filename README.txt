@@ -79,7 +79,9 @@ Open this link to the Online Library Portal. To log in, use the credentials
 
 A default CSV file of accounts is provided in the project folder (defaultData.csv).
 
-A few books will be provided that are already in the database, but if you wish to add your own books that you will be able to check out, please create a CSV of books (barcodes and ISBNs) and follow the instructions on the Online Library Portal.
+A few books will be provided that are already in the database, but if you wish to add 
+your own books that you will be able to check out, please create a CSV of books 
+(barcodes and ISBNs) and follow the instructions on the Online Library Portal.
 
 To run the Bibliofly App:
 
